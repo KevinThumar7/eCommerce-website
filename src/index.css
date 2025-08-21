@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* @media (max-width: 820px) {
+    .navbar-media {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 720px) {
+    .navbar-media {
+        gap: 8px;
+        font-size: 12px;
+    }
+    .navbar-container {
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 658px) {
+    .navbar-media {
+        gap: 6px;
+        font-size: 10px;
+    }
+} */
