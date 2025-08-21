@@ -1,0 +1,9 @@
+:root {
+    --light-black: #212123;
+    --light-gray: #8f8f8f;
+    --white: #ffffff;
+}
+
+.cardText {
+    color: var(--light-gray);
+}

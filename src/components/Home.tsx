@@ -1,10 +1,9 @@
-import { NavLink } from "react-router"
-
+import { NavLink } from "react-router";
 
 function Home() {
   return (
-    <section className="container absolute top-0 hero-section">
-      <div className="w-full flex justify-center items-center h-screen">
+    <section className="w-full left-1/2 transform -translate-x-1/2 absolute top-0 hero-section">
+      <div className="container flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-black text-3xl p-2 bg-white">
             INCREDIBLE PRICES ON ALL YOUR FAVOURITE ITEMS
@@ -21,4 +20,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;

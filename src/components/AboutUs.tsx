@@ -1,9 +1,9 @@
 // import React from 'react'
-import photo from "../assets/aboutus.jpg"
+import photo from "../assets/aboutus.jpg";
 
 function AboutUs() {
   return (
-    <section className="container w-full h-screen absolute top-0">
+    <section className="container left-1/2 transform -translate-x-1/2 w-full h-screen absolute top-0">
       <div className=" flex flex-col justify-center items-center mt-25">
         <h1 className="text-2xl mb-10">ABOUT US</h1>
         <div className="flex w-full justify-center items-center">
@@ -36,4 +36,4 @@ function AboutUs() {
   );
 }
 
-export default AboutUs
+export default AboutUs;
