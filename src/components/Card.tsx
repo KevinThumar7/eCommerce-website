@@ -5,6 +5,7 @@ import gif from "../assets/giphy-2.gif";
 
 import { useDispatch } from "react-redux";
 import { increment } from "../counter/counterSlice";
+import { NavLink } from "react-router";
 
 type CardTypes = {
   id: number;
@@ -14,26 +15,27 @@ type CardTypes = {
 };
 
 function Card(props: CardTypes) {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
-      <div className="w-full">
-        {props.images ? (
-          <img className="w-full" src={props.images[0]} alt="" />
-        ) : (
-          <div className="w-full bg-black flex items-center justify-center py-30">
-            <img width={50} height={50} src={gif} alt="" />
-          </div>
-        )}
-      </div>
-      <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px]">
-        <h3>{props.title.toUpperCase()}</h3>
-      </div>
-      <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px] mb-5 items-end">
-        <h3 className={styles.cardText}>$ {props.price}</h3>
-      </div>
+      <NavLink to={"/products/" + props.id}>
+        <div className="w-full">
+          {props.images ? (
+            <img className="w-full" src={props.images[0]} alt="" />
+          ) : (
+            <div className="w-full bg-black flex items-center justify-center py-30">
+              <img width={50} height={50} src={gif} alt="" />
+            </div>
+          )}
+        </div>
+        <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px]">
+          <h3>{props.title.toUpperCase()}</h3>
+        </div>
+        <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px] mb-5 items-end">
+          <h3 className={styles.cardText}>$ {props.price}</h3>
+        </div>
+      </NavLink>
       <button
         onClick={() => dispatch(increment())}
         type="button"

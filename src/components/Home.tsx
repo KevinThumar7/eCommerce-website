@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 
 function Home() {
   return (
-    <section className="w-full left-1/2 transform -translate-x-1/2 absolute top-0 hero-section">
+    <section className="w-full hero-section mt-[-80px]">
       <div className="container flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-black lg:text-3xl md:text-2xl sm:text-xl text-xs p-2 bg-white">

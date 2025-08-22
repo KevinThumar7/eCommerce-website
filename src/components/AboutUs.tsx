@@ -3,8 +3,8 @@ import photo from "../assets/aboutus.jpg";
 
 function AboutUs() {
   return (
-    <section className="container left-1/2 transform -translate-x-1/2 w-full h-screen absolute top-0">
-      <div className=" flex flex-col justify-center items-center mt-25">
+    <section className="container mt-[-80px] w-full">
+      <div className=" flex flex-col justify-center items-center mt-10">
         <h1 className="text-2xl mb-10">ABOUT US</h1>
         <div className="flex max-lg:flex-col-reverse w-full justify-center items-center">
           <div className="w-1/2 max-lg:w-full">

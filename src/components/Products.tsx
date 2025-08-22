@@ -1,7 +1,10 @@
 // import React from 'react'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "./Card";
+
+import { useContext } from "react";
+import { DataContext } from "../context/DataContextTS";
 
 type Products = {
   id: number;
@@ -11,24 +14,9 @@ type Products = {
 };
 
 function Products() {
-  const [productData, setProductData] = useState<Products[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { items, loading } = useContext(DataContext);
   const [searchProduct, setSearchProduct] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
-
-  useEffect(() => {
-    const url = "https://dummyjson.com/products";
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const data = fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        setProductData(res.products);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching products", err);
-      });
-  }, []);
 
   if (loading) {
     return (
@@ -38,7 +26,7 @@ function Products() {
     );
   }
 
-  const filteredData = productData
+  const filteredData = items
     .filter((item) =>
       item.title.toLowerCase().includes(searchProduct.toLowerCase())
     )
@@ -49,7 +37,7 @@ function Products() {
     });
 
   return (
-    <section className="container left-1/2 transform -translate-x-1/2 absolute top-0">
+    <section className="container mt-[80px]">
       <div className="mt-15">
         <div className="w-full text-center">
           <h1 className="mb-10 md:text-xs text-[10px]">COLLECTIONS...</h1>
@@ -57,7 +45,9 @@ function Products() {
         <div className="flex justify-around">
           <div>
             <span>
-              <i className="lg:text-sm sm:text-xs text-[10px]">Sort by Price :</i>
+              <i className="lg:text-sm sm:text-xs text-[10px]">
+                Sort by Price :
+              </i>
               <select
                 className="lg:text-md md:text-sm sm:text-xs text-[10px]"
                 title="sort"
