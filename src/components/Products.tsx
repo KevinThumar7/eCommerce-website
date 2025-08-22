@@ -18,6 +18,7 @@ function Products() {
 
   useEffect(() => {
     const url = "https://dummyjson.com/products";
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const data = fetch(url)
       .then((res) => res.json())
       .then((res) => {
@@ -44,20 +45,22 @@ function Products() {
     .sort((a, b) => {
       if (filter === "lowToHigh") return a.price - b.price;
       if (filter === "highToLow") return b.price - a.price;
-      return 0; // default: no sorting
+      return 0;
     });
 
   return (
     <section className="container left-1/2 transform -translate-x-1/2 absolute top-0">
-      <div className="mt-25">
+      <div className="mt-15">
         <div className="w-full text-center">
-          <h1 className="mb-10">COLLECTIONS...</h1>
+          <h1 className="mb-10 md:text-xs text-[10px]">COLLECTIONS...</h1>
         </div>
         <div className="flex justify-around">
           <div>
             <span>
-              Sort by Price :{" "}
+              <i className="lg:text-sm sm:text-xs text-[10px]">Sort by Price :</i>
               <select
+                className="lg:text-md md:text-sm sm:text-xs text-[10px]"
+                title="sort"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 name="sort"
@@ -69,17 +72,17 @@ function Products() {
               </select>
             </span>
           </div>
-          <div>
-            <div className="flex w-fit search-navbar rounded-full">
+          <div className="w-1/2 justify-end flex">
+            <div className="flex max-md:flex-1 w-fit search-navbar rounded-full">
               <input
                 value={searchProduct}
                 onChange={(e) => setSearchProduct(e.target.value)}
-                className="px-4 border-none outline-none"
+                className="md:px-4 sm:px-2 px-1 w-full max-sm:text-[10px] flex flex-wrap border-none outline-none"
                 name="search"
                 type="text"
                 placeholder="Search Here..."
               />
-              <span className="bootstrap-icons w-8 h-8 flex justify-center items-center">
+              <span className="bootstrap-icons w-8 h-8 p-2 flex justify-center items-center">
                 <i className="bi bi-search-heart-fill"></i>
               </span>
             </div>

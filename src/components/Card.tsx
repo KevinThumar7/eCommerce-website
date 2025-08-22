@@ -3,6 +3,9 @@
 import styles from "../css modules/Card.module.css";
 import gif from "../assets/giphy-2.gif";
 
+import { useDispatch } from "react-redux";
+import { increment } from "../counter/counterSlice";
+
 type CardTypes = {
   id: number;
   title: string;
@@ -11,8 +14,11 @@ type CardTypes = {
 };
 
 function Card(props: CardTypes) {
+
+  const dispatch = useDispatch()
+
   return (
-    <div className="w-1/4 p-2 flex flex-col cursor-pointer">
+    <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
       <div className="w-full">
         {props.images ? (
           <img className="w-full" src={props.images[0]} alt="" />
@@ -22,15 +28,31 @@ function Card(props: CardTypes) {
           </div>
         )}
       </div>
-      <div className="w-full">
+      <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px]">
         <h3>{props.title.toUpperCase()}</h3>
       </div>
-      <div className="w-full mb-5 items-end">
+      <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px] mb-5 items-end">
         <h3 className={styles.cardText}>$ {props.price}</h3>
       </div>
-      <button className="mt-auto py-2 px-5 bg-black text-white rounded-full w-fit mx-auto mt-5 mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500">
+      <button
+        onClick={() => dispatch(increment())}
+        type="button"
+        className="mt-auto lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
+      >
         Add to Cart
       </button>
+      {/* <div className="py-2 px-5 mx-auto mt-auto mb-5 bg-black w-fit text-white rounded-full">
+        <button className="mr-5 cursor-pointer" title="delete" type="button">
+          <i className="bi bi-trash3-fill"></i>
+        </button>
+        <span className="mr-5">3</span>
+        <button className="mr-1 cursor-pointer" title="add" type="button">
+          <i className="bi bi-plus-circle"></i>
+        </button>
+        <button className="cursor-pointer" title="delete" type="button">
+          <i className="bi bi-dash-circle"></i>
+        </button>
+      </div> */}
     </div>
   );
 }
