@@ -1,12 +1,49 @@
 // import React from 'react'
 
+import { NavLink } from "react-router-dom";
 import CartProduct from "./CartProduct";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 function Cart() {
+  const count = useSelector((state: RootState) => state.cart.products);
+
+  // console.log(count.length);
+
   return (
-    <div>
-      <h1>cart</h1>
-      <CartProduct />
+    <div className="w-screen container -mt-20">
+      {count.length > 0 && (
+        <div className="w-full">
+          <div className="mt-2 w-full flex justify-center mb-5 text-xl">
+            <h1>Your Shopping Cart...</h1>
+          </div>
+          <div>
+            <CartProduct />
+          </div>
+        </div>
+      )}
+      {count.length == 0 && (
+        <div className="w-1/2 mx-auto flex flex-col h-full mt-40 items-center">
+          <span className="w-20 h-20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="full"
+              height="full"
+              fill="currentColor"
+              className="bi bi-cart4"
+              viewBox="0 0 16 16"
+            >
+              <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+            </svg>
+          </span>
+          <h2 className="mt-10 text-2xl">Your Shopping Cart is Empty...</h2>
+          <div className="mt-10">
+            <span className="cursor-pointer md:py-2 md:px-8 py-1 px-4 text-sm md:text-lg bg-black text-white rounded-4xl hover:bg-gray-300 hover:text-black duration-600 transition-all">
+              <NavLink to={"/products"}>Shop Now</NavLink>
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

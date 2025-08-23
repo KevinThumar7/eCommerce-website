@@ -1,31 +1,40 @@
-// import React from 'react'
-
 import styles from "../css modules/Card.module.css";
 import gif from "../assets/giphy-2.gif";
 
 import { useDispatch } from "react-redux";
-import { increment } from "../counter/counterSlice";
-import { NavLink } from "react-router";
+import { addToCart } from "../counter/cartSlice";
+import { NavLink } from "react-router-dom";
 
 type CardTypes = {
   id: number;
   title: string;
-  images: string;
+  images: string[];
   price: number;
 };
 
 function Card(props: CardTypes) {
   const dispatch = useDispatch();
 
+  const handleClick = () => {
+    dispatch(
+      addToCart({
+        id: props.id,
+        price: props.price,
+        images: props.images,
+        title: props.title,
+      })
+    );
+  };
+
   return (
     <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
-      <NavLink to={"/products/" + props.id}>
+      <NavLink to={`/products/${props.id}`}>
         <div className="w-full">
-          {props.images ? (
-            <img className="w-full" src={props.images[0]} alt="" />
+          {props.images?.length ? (
+            <img className="w-full" src={props.images[0]} alt={props.title} />
           ) : (
             <div className="w-full bg-black flex items-center justify-center py-30">
-              <img width={50} height={50} src={gif} alt="" />
+              <img width={50} height={50} src={gif} alt="loading..." />
             </div>
           )}
         </div>
@@ -36,25 +45,14 @@ function Card(props: CardTypes) {
           <h3 className={styles.cardText}>$ {props.price}</h3>
         </div>
       </NavLink>
+
       <button
-        onClick={() => dispatch(increment())}
+        onClick={handleClick}
         type="button"
         className="mt-auto lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
       >
         Add to Cart
       </button>
-      {/* <div className="py-2 px-5 mx-auto mt-auto mb-5 bg-black w-fit text-white rounded-full">
-        <button className="mr-5 cursor-pointer" title="delete" type="button">
-          <i className="bi bi-trash3-fill"></i>
-        </button>
-        <span className="mr-5">3</span>
-        <button className="mr-1 cursor-pointer" title="add" type="button">
-          <i className="bi bi-plus-circle"></i>
-        </button>
-        <button className="cursor-pointer" title="delete" type="button">
-          <i className="bi bi-dash-circle"></i>
-        </button>
-      </div> */}
     </div>
   );
 }

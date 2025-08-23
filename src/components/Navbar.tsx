@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 
 function Navbar() {
-
-  const count = useSelector((state: RootState) => state.counter.value);
+  const products = useSelector((state: RootState) => state.cart.products);
 
   return (
     <nav className="w-full sticky top-0 left-0 z-50 bg-white">
@@ -54,9 +53,9 @@ function Navbar() {
               </NavLink>
             </span>
             <span className="relative navbar-search-icon bootstrap-icons w-8 h-8 flex justify-center items-center">
-              {count > 0 && (
+              {products.length > 0 && (
                 <p className="lg:w-5 lg:h-5 md:w-4 md:h-4 sm:w-3 sm:h-3 flex justify-center items-center top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full text-white absolute">
-                  {count}
+                  {products.length}
                 </p>
               )}
               <NavLink to={"/cart"}>

@@ -10,7 +10,7 @@ type Products = {
   id: number;
   title: string;
   price: number;
-  images: string;
+  images: string[];
 };
 
 function Products() {
@@ -91,7 +91,7 @@ function Products() {
                   title={item.title}
                   price={item.price}
                   id={item.id}
-                  images={item.images}
+                  images={[item.images[0]]}
                 />
               );
             })
