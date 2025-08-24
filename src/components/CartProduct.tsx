@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { increase, decrease, deleteItem } from "../counter/cartSlice";
 import type { RootState } from "../store/store";
 import Quantity from "./Quantity";
+import Delete from "./Delete";
 
 function CartProduct() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function CartProduct() {
       {items.map((item) => (
         <div
           key={item.id}
-          className="w-2/3 rounded-3xl bg-gray-100 mb-4 flex p-5 justify-around items-center"
+          className="w-full rounded-3xl bg-gray-100 mb-4 flex p-5 justify-around items-center"
         >
           <div className="w-1/8">
             <img src={item.image} alt={item.title} />
@@ -35,21 +36,18 @@ function CartProduct() {
             <h3>{item.title.toUpperCase()}</h3>
             <h3 className="text-gray-500">${item.price}</h3>
           </div>
+          <div className="w-1/9">
           <Quantity
             item={item}
             handlePlus={handlePlus}
             handleMinus={handleMinus}
-          />
+            />
+            </div>
           <div className="w-1/8 overflow-auto  scroll-auto">
             <h2>$ {item.totalPrice.toFixed(2)}</h2>
           </div>
           <div className="w-fit">
-            <button
-              onClick={() => handleDelete(Number(item.id))}
-              className="cursor-pointer"
-            >
-              <i className="bi bi-trash3"></i>
-            </button>
+            <Delete item={item} handleDelete={handleDelete} />
           </div>
         </div>
       ))}

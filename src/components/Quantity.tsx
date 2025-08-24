@@ -1,8 +1,21 @@
-// import React from "react"; 
+import React from "react";
 
-function Quantity({item , handleMinus , handlePlus}) {
+type QuantityProps = {
+  item: {
+    id: number | string;
+    quantity: number;
+  };
+  handleMinus: (id: number) => void;
+  handlePlus: (id: number) => void;
+};
+
+const Quantity: React.FC<QuantityProps> = ({
+  item,
+  handleMinus,
+  handlePlus,
+}) => {
   return (
-    <div className="border-gray-500 flex border justify-around rounded-xl w-1/9">
+    <div className="border-gray-500 flex border justify-around rounded-xl w-full">
       <button
         disabled={item.quantity >= 10}
         onClick={() => handlePlus(Number(item.id))}
@@ -18,6 +31,6 @@ function Quantity({item , handleMinus , handlePlus}) {
       </button>
     </div>
   );
-}
+};
 
 export default Quantity;

@@ -4,6 +4,11 @@ import gif from "../assets/giphy-2.gif";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../counter/cartSlice";
 import { NavLink } from "react-router-dom";
+import Quantity from "./Quantity";
+import { useSelector } from "react-redux";
+import { increase, decrease , deleteItem } from "../counter/cartSlice";
+import type { RootState } from "../store/store";
+import Delete from "./Delete";
 
 type CardTypes = {
   id: number;
@@ -13,6 +18,8 @@ type CardTypes = {
 };
 
 function Card(props: CardTypes) {
+  const items = useSelector((state: RootState) => state.cart.products);
+  const cartItem = items.find((item) => item.id === props.id);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -24,6 +31,18 @@ function Card(props: CardTypes) {
         title: props.title,
       })
     );
+  };
+
+  const handlePlus = (itemId: number) => {
+    dispatch(increase({ id: itemId }));
+  };
+
+  const handleMinus = (itemId: number) => {
+    dispatch(decrease({ id: itemId }));
+  };
+
+  const handleDelete = (itemId: number) => {
+    dispatch(deleteItem({ id: itemId }));
   };
 
   return (
@@ -45,14 +64,28 @@ function Card(props: CardTypes) {
           <h3 className={styles.cardText}>$ {props.price}</h3>
         </div>
       </NavLink>
-
-      <button
-        onClick={handleClick}
-        type="button"
-        className="mt-auto lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
-      >
-        Add to Cart
-      </button>
+      <div className="w-full flex mt-auto justify-center items-center">
+        {!cartItem ? (
+          <button
+            onClick={handleClick}
+            type="button"
+            className="mt-auto flex justify-center items-center lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
+          >
+            Add to Cart
+          </button>
+        ) : (
+          <div className="flex w-full justify-center">
+            <div className="w-1/3 mb-5">
+              <Quantity
+                item={{ id: cartItem.id, quantity: cartItem.quantity }}
+                handleMinus={handleMinus}
+                handlePlus={handlePlus}
+              />
+            </div>
+            <div className="ml-3"><Delete item={{ id: cartItem.id, quantity: cartItem.quantity }} handleDelete={handleDelete} /></div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

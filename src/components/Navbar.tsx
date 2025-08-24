@@ -5,7 +5,8 @@ import type { RootState } from "../store/store";
 
 function Navbar() {
   const products = useSelector((state: RootState) => state.cart.products);
-
+  const totalQuantity = useSelector((state: RootState) => state.cart.totalQuantity);
+  
   return (
     <nav className="w-full sticky top-0 left-0 z-50 bg-white">
       <div className="container">
@@ -54,8 +55,8 @@ function Navbar() {
             </span>
             <span className="relative navbar-search-icon bootstrap-icons w-8 h-8 flex justify-center items-center">
               {products.length > 0 && (
-                <p className="lg:w-5 lg:h-5 md:w-4 md:h-4 sm:w-3 sm:h-3 flex justify-center items-center top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full text-white absolute">
-                  {products.length}
+                <p className="lg:w-5 text-[10px] lg:h-5 md:w-4 md:h-4 sm:w-3 sm:h-3 flex justify-center items-center top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full text-white absolute">
+                  {totalQuantity}
                 </p>
               )}
               <NavLink to={"/cart"}>

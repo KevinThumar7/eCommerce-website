@@ -4,12 +4,43 @@ import { NavLink, useParams } from "react-router";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContextTS";
 import { useDispatch } from "react-redux";
-import { increment } from "../counter/counterSlice";
+// import { increment } from "../counter/counterSlice";
+import { useSelector } from "react-redux";
+import { increase , decrease , deleteItem , addToCart } from "../counter/cartSlice";
+import Quantity from "./Quantity";
+import Delete from "./Delete";
+import type { RootState } from "../store/store";
 
 function Item() {
   const dispatch = useDispatch();
   const { items, loading } = useContext(DataContext);
   const param = useParams();
+
+  const products = useSelector((state: RootState) => state.cart.products)
+  const cartItem = products.find((item) => item.id === Number(param.id));
+
+  const handlePlus = (itemId: number) => {
+      dispatch(increase({ id: itemId }));
+    };
+  
+    const handleMinus = (itemId: number) => {
+      dispatch(decrease({ id: itemId }));
+    };
+  
+    const handleDelete = (itemId: number) => {
+      dispatch(deleteItem({ id: itemId }));
+    };
+
+    const handleClick = (e) => {
+        dispatch(
+          addToCart({
+            id: e.id,
+            price: e.price,
+            images: e.images,
+            title: e.title,
+          })
+        );
+      };
 
   if (loading) {
     return (
@@ -18,8 +49,6 @@ function Item() {
       </div>
     );
   }
-
-  console.log(items);
 
   return (
     <div className="container h-full">
@@ -56,13 +85,39 @@ function Item() {
                     </h4>
                   </div>
                   <div>
-                    <button
-                      onClick={() => dispatch(increment())}
-                      className="py-2 px-5 max-md:text-sm max-sm:text-[10px] bg-black text-white rounded-full cursor-pointer mt-5 mb-5 hover:bg-gray-600 transition-all duration-500"
-                      type="button"
-                    >
-                      Add to Cart
-                    </button>
+                    <div className="w-full mt-5">
+                      {!cartItem ? (
+                        <button
+                          onClick={()=>handleClick(item)}
+                          type="button"
+                          className="mt-auto lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
+                        >
+                          Add to Cart
+                        </button>
+                      ) : (
+                        <div className="flex w-1/2">
+                          <div className="w-1/3 mb-5">
+                            <Quantity
+                              item={{
+                                id: cartItem.id,
+                                quantity: cartItem.quantity,
+                              }}
+                              handleMinus={handleMinus}
+                              handlePlus={handlePlus}
+                            />
+                          </div>
+                          <div className="ml-3">
+                            <Delete
+                              item={{
+                                id: cartItem.id,
+                                quantity: cartItem.quantity,
+                              }}
+                              handleDelete={handleDelete}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="bg-blue-100 p-5 rounded-2xl">
                     <h4 className="mb-2">Characteristics</h4>

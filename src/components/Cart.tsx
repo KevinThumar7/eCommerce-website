@@ -4,21 +4,31 @@ import { NavLink } from "react-router-dom";
 import CartProduct from "./CartProduct";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
+import PaymentPage from "./PaymentPage";
+import { clearCart } from "../counter/cartSlice";
+import { useDispatch } from "react-redux";
 
 function Cart() {
   const count = useSelector((state: RootState) => state.cart.products);
+  const subTotal = useSelector((state: RootState)=>state.cart.totalPrice) 
 
-  // console.log(count.length);
+  const dispatch = useDispatch()
 
   return (
-    <div className="w-screen container -mt-20">
+    <div className="w-screen container -mt-80">
       {count.length > 0 && (
         <div className="w-full">
-          <div className="mt-2 w-full flex justify-center mb-5 text-xl">
+          <div className="mt-2 w-full flex justify-around mb-5 text-xl">
             <h1>Your Shopping Cart...</h1>
+            <button onClick={()=>dispatch(clearCart())} className="text-lg underline cursor-pointer">...Clear Shopping Cart</button>
           </div>
-          <div>
-            <CartProduct />
+          <div className="flex w-full">
+            <div className="w-3/5 h-170 fixed overflow-hidden overflow-y-auto top-33">
+              <CartProduct />
+            </div>
+            <div className="w-1/4 bg-gray-100 rounded-2xl py-5 px-7 flex ml-auto h-fit">
+              <PaymentPage total={subTotal} />
+            </div>
           </div>
         </div>
       )}
@@ -27,8 +37,6 @@ function Cart() {
           <span className="w-20 h-20">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="full"
-              height="full"
               fill="currentColor"
               className="bi bi-cart4"
               viewBox="0 0 16 16"

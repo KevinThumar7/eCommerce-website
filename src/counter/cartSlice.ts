@@ -75,15 +75,21 @@ export const cartSlice = createSlice({
             const item = state.products.find(p => p.id === id)
             if(item){
                 const newArray = state.products.filter(item=>item.id !== id)
+                state.totalQuantity -= item.quantity
+                state.totalPrice -= item.totalPrice
+                state.products = newArray;
                 item.quantity = 0
                 item.totalPrice = 0;
-                state.products = newArray;
-                // state.totalPrice -=
             }
+        },
+        clearCart: (state)=>{
+            state.totalQuantity = 0;
+            state.totalPrice = 0;
+            state.products = [];
         }
     },
 });
 
-export const { addToCart, increase , decrease , deleteItem } = cartSlice.actions;
+export const { addToCart, increase , decrease , deleteItem , clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
