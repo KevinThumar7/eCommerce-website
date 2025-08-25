@@ -23,31 +23,51 @@ function CartProduct() {
   };
 
   return (
-    <div className="w-full">
+    <div
+      className=" w-full
+        max-[574px]:flex 
+        max-[574px]:flex-row 
+        max-[574px]:overflow-x-auto 
+        max-[574px]:space-x-4 
+        max-[574px]:p-4
+        max-[574px]:scrollbar-thin 
+        max-[574px]:scrollbar-thumb-gray-300 
+        max-[574px]:scrollbar-track-transparent
+        max-[1027px]:flex 
+        max-[1027px]:flex-col"
+    >
       {items.map((item) => (
         <div
           key={item.id}
-          className="w-full rounded-3xl bg-gray-100 mb-4 flex p-5 justify-around items-center"
+          className="w-full max-[574px]:min-w-2/3 rounded-3xl bg-gray-100 mb-4 flex max-[1027px]:flex-col p-5 justify-between items-center max-[1027px]:gap-3"
         >
-          <div className="w-1/8">
-            <img src={item.image} alt={item.title} />
-          </div>
-          <div className="w-2/5">
-            <h3>{item.title.toUpperCase()}</h3>
-            <h3 className="text-gray-500">${item.price}</h3>
-          </div>
-          <div className="w-1/9">
-          <Quantity
-            item={item}
-            handlePlus={handlePlus}
-            handleMinus={handleMinus}
-            />
+          <div className="w-1/2 max-[1027px]:w-full flex justify-around items-center">
+            <div className="w-1/4 max-[743px]:w-1/2">
+              <img src={item.image} alt={item.title} />
             </div>
-          <div className="w-1/8 overflow-auto  scroll-auto">
-            <h2>$ {item.totalPrice.toFixed(2)}</h2>
+            <div className="w-2/3">
+              <h3 className="md:text-lg sm:text-md text-sm">
+                {item.title.toUpperCase()}
+              </h3>
+              <h3 className="text-gray-500 md:text-md sm:text-sm text-xs">
+                ${item.price}
+              </h3>
+            </div>
           </div>
-          <div className="w-fit">
-            <Delete item={item} handleDelete={handleDelete} />
+          <div className="w-1/2 max-[1027px]:w-full flex items-center justify-around">
+            <div className="w-fit">
+              <Quantity
+                item={item}
+                handlePlus={handlePlus}
+                handleMinus={handleMinus}
+              />
+            </div>
+            <div className="w-fit overflow-auto scroll-auto md:text-md sm:text-sm text-xs">
+              <h2>$ {item.totalPrice.toFixed(2)}</h2>
+            </div>
+            <div className="w-fit">
+              <Delete item={item} handleDelete={handleDelete} />
+            </div>
           </div>
         </div>
       ))}

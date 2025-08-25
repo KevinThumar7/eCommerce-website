@@ -6,7 +6,7 @@ import { addToCart } from "../counter/cartSlice";
 import { NavLink } from "react-router-dom";
 import Quantity from "./Quantity";
 import { useSelector } from "react-redux";
-import { increase, decrease , deleteItem } from "../counter/cartSlice";
+import { increase, decrease, deleteItem } from "../counter/cartSlice";
 import type { RootState } from "../store/store";
 import Delete from "./Delete";
 
@@ -74,7 +74,7 @@ function Card(props: CardTypes) {
             Add to Cart
           </button>
         ) : (
-          <div className="flex w-full justify-center">
+          <div className="flex w-full justify-center items-center">
             <div className="w-1/3 mb-5">
               <Quantity
                 item={{ id: cartItem.id, quantity: cartItem.quantity }}
@@ -82,7 +82,12 @@ function Card(props: CardTypes) {
                 handlePlus={handlePlus}
               />
             </div>
-            <div className="ml-3"><Delete item={{ id: cartItem.id, quantity: cartItem.quantity }} handleDelete={handleDelete} /></div>
+            <div className="ml-3 mb-auto py-1 px-1">
+              <Delete
+                item={{ id: cartItem.id, quantity: cartItem.quantity }}
+                handleDelete={handleDelete}
+              />
+            </div>
           </div>
         )}
       </div>

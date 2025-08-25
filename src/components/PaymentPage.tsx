@@ -9,7 +9,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ total }) => {
   const discount: number = 0.1;
   const tax: number = 0.07;
 
-  const discountedTotal = total - (total * discount);
+  const discountedTotal = total - total * discount;
 
   const isFreeShipping = discountedTotal > 100;
   const appliedShippingCost = isFreeShipping ? 0 : shipCost;
@@ -20,9 +20,9 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ total }) => {
 
   return (
     <div className="w-full">
-      <h1 className="text-xl mb-5">SUMMARY</h1>
+      <h1 className="lg:text-xl md:text-lg sm:text-md text-sm mb-5">SUMMARY</h1>
       <hr />
-      <div className="mt-5 w-full">
+      <div className="mt-5 w-full lg:text-lg md:text-md sm:text-sm text-xs">
         <p className="flex mb-2">
           Subtotal <span className="ml-auto">$ {total.toFixed(2)}</span>
         </p>
@@ -31,7 +31,10 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ total }) => {
           <span className="ml-auto">- {(discount * 100).toFixed(2)}%</span>
         </p>
         <hr />
-        <p className="flex my-2">After Discount <span className="ml-auto">{discountedTotal.toFixed(2)}</span></p>
+        <p className="flex my-2">
+          After Discount{" "}
+          <span className="ml-auto">$ {discountedTotal.toFixed(2)}</span>
+        </p>
         <hr />
         <p className={`flex mt-2 ${isFreeShipping ? "line-through" : ""}`}>
           Shipping Cost <span className="ml-auto">$ {shipCost}</span>
@@ -63,12 +66,12 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ total }) => {
         </p>
         <hr />
         <p className="flex mt-2">
-          Total <span className="ml-auto">{totalWithTax.toFixed(2)}</span>
+          Total <span className="ml-auto">$ {totalWithTax.toFixed(2)}</span>
         </p>
       </div>
       <button
         type="button"
-        className="mt-5 py-2 px-4 bg-black text-white cursor-pointer rounded-full hover:bg-gray-400 transition-all duration-500"
+        className="mt-5 py-1 px-4 lg:text-xl md:text-lg sm:text-md text-sm bg-black text-white cursor-pointer rounded-full hover:bg-gray-400 transition-all duration-500"
       >
         Checkout
       </button>

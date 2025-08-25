@@ -40,7 +40,7 @@ function Products() {
     <section className="container mt-[80px]">
       <div className="mt-15">
         <div className="w-full text-center">
-          <h1 className="mb-10 md:text-xs text-[10px]">COLLECTIONS...</h1>
+          <h1 className="mb-10 md:text-sm text-[10px]">COLLECTIONS...</h1>
         </div>
         <div className="flex justify-around">
           <div>

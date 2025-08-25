@@ -5,8 +5,10 @@ import type { RootState } from "../store/store";
 
 function Navbar() {
   const products = useSelector((state: RootState) => state.cart.products);
-  const totalQuantity = useSelector((state: RootState) => state.cart.totalQuantity);
-  
+  const totalQuantity = useSelector(
+    (state: RootState) => state.cart.totalQuantity
+  );
+
   return (
     <nav className="w-full sticky top-0 left-0 z-50 bg-white">
       <div className="container">

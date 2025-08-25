@@ -15,19 +15,23 @@ const Quantity: React.FC<QuantityProps> = ({
   handlePlus,
 }) => {
   return (
-    <div className="border-gray-500 flex border justify-around rounded-xl w-full">
+    <div className="border-gray-500 flex border justify-around items-center rounded-xl w-full">
       <button
-        disabled={item.quantity >= 10}
-        onClick={() => handlePlus(Number(item.id))}
-      >
-        +
-      </button>
-      <p>{item.quantity}</p>
-      <button
+        type="button"
+        className="cursor-pointer py-1 px-2"
         disabled={item.quantity <= 1}
         onClick={() => handleMinus(Number(item.id))}
       >
         -
+      </button>
+      <p className="px-2">{item.quantity}</p>
+      <button
+        type="button"
+        className="cursor-pointer py-1 px-2"
+        disabled={item.quantity >= 10}
+        onClick={() => handlePlus(Number(item.id))}
+      >
+        +
       </button>
     </div>
   );

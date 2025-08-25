@@ -4,8 +4,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 
 function Contact() {
   type Inputs = {
-    example: string;
-    exampleRequired: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -17,9 +15,8 @@ function Contact() {
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async () => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
   };
 
   return (

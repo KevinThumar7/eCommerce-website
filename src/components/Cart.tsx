@@ -10,23 +10,29 @@ import { useDispatch } from "react-redux";
 
 function Cart() {
   const count = useSelector((state: RootState) => state.cart.products);
-  const subTotal = useSelector((state: RootState)=>state.cart.totalPrice) 
+  const subTotal = useSelector((state: RootState) => state.cart.totalPrice);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <div className="w-screen container -mt-80">
       {count.length > 0 && (
         <div className="w-full">
-          <div className="mt-2 w-full flex justify-around mb-5 text-xl">
+          <div className="mt-2 w-full flex justify-around mb-5 lg:text-xl md:text-lg sm:text-md text-sm">
             <h1>Your Shopping Cart...</h1>
-            <button onClick={()=>dispatch(clearCart())} className="text-lg underline cursor-pointer">...Clear Shopping Cart</button>
+            <button
+              type="button"
+              onClick={() => dispatch(clearCart())}
+              className="lg:text-xl md:text-lg sm:text-md text-sm underline cursor-pointer"
+            >
+              ...Clear Shopping Cart
+            </button>
           </div>
-          <div className="flex w-full">
-            <div className="w-3/5 h-170 fixed overflow-hidden overflow-y-auto top-33">
+          <div className="w-full flex max-[574px]:flex-col justify-between">
+            <div className="min-[999px]:w-2/3 w-1/2 max-[574px]:w-full min-[574px]:h-125 overflow-hidden overflow-y-auto">
               <CartProduct />
             </div>
-            <div className="w-1/4 bg-gray-100 rounded-2xl py-5 px-7 flex ml-auto h-fit">
+            <div className="min-[830px]:w-[290px] w-[250px] max-[642px]:w-[225px] max-[574px]:w-2/3 max-[574px]:mx-auto max-[574px]:mt-5 bg-gray-100 rounded-2xl py-5 px-7 max-[642px]:py-3 max-[642px]:px-4 flex h-fit">
               <PaymentPage total={subTotal} />
             </div>
           </div>

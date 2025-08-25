@@ -4,43 +4,54 @@ import { NavLink, useParams } from "react-router";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContextTS";
 import { useDispatch } from "react-redux";
-// import { increment } from "../counter/counterSlice";
 import { useSelector } from "react-redux";
-import { increase , decrease , deleteItem , addToCart } from "../counter/cartSlice";
+import {
+  increase,
+  decrease,
+  deleteItem,
+  addToCart,
+} from "../counter/cartSlice";
 import Quantity from "./Quantity";
 import Delete from "./Delete";
 import type { RootState } from "../store/store";
 
+interface Product {
+  id: number;
+  price: number;
+  images: string;
+  title: string;
+}
+
 function Item() {
   const dispatch = useDispatch();
   const { items, loading } = useContext(DataContext);
-  const param = useParams();
+  const param = useParams<string>();
 
-  const products = useSelector((state: RootState) => state.cart.products)
+  const products = useSelector((state: RootState) => state.cart.products);
   const cartItem = products.find((item) => item.id === Number(param.id));
 
   const handlePlus = (itemId: number) => {
-      dispatch(increase({ id: itemId }));
-    };
-  
-    const handleMinus = (itemId: number) => {
-      dispatch(decrease({ id: itemId }));
-    };
-  
-    const handleDelete = (itemId: number) => {
-      dispatch(deleteItem({ id: itemId }));
-    };
+    dispatch(increase({ id: itemId }));
+  };
 
-    const handleClick = (e) => {
-        dispatch(
-          addToCart({
-            id: e.id,
-            price: e.price,
-            images: e.images,
-            title: e.title,
-          })
-        );
-      };
+  const handleMinus = (itemId: number) => {
+    dispatch(decrease({ id: itemId }));
+  };
+
+  const handleDelete = (itemId: number) => {
+    dispatch(deleteItem({ id: itemId }));
+  };
+
+  const handleClick = (e: Product) => {
+    dispatch(
+      addToCart({
+        id: e.id,
+        price: e.price,
+        images: [e.images[0]],
+        title: e.title,
+      })
+    );
+  };
 
   if (loading) {
     return (
@@ -88,7 +99,7 @@ function Item() {
                     <div className="w-full mt-5">
                       {!cartItem ? (
                         <button
-                          onClick={()=>handleClick(item)}
+                          onClick={() => handleClick(item)}
                           type="button"
                           className="mt-auto lg:py-2 lg:px-5 md:px-4 md:text-sm sm:text-xs text-[8px] px-3 py-1 bg-black text-white rounded-full w-fit mx-auto mb-5 cursor-pointer hover:bg-gray-400 hover:text-black transition-all duration-500"
                         >
@@ -106,7 +117,7 @@ function Item() {
                               handlePlus={handlePlus}
                             />
                           </div>
-                          <div className="ml-3">
+                          <div className="ml-3 mb-auto py-1 px-2">
                             <Delete
                               item={{
                                 id: cartItem.id,
