@@ -75,7 +75,7 @@ function Card(props: CardTypes) {
           </button>
         ) : (
           <div className="flex w-full justify-center items-center">
-            <div className="w-1/3 mb-5">
+            <div className="w-fit mb-5">
               <Quantity
                 item={{ id: cartItem.id, quantity: cartItem.quantity }}
                 handleMinus={handleMinus}
