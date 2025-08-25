@@ -1,6 +1,6 @@
 // import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increase, decrease, deleteItem } from "../counter/cartSlice";
+import { increase, decrease, deleteItem } from "../slice/cartSlice";
 import type { RootState } from "../store/store";
 import Quantity from "./Quantity";
 import Delete from "./Delete";

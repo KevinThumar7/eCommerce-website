@@ -5,12 +5,7 @@ import { useContext } from "react";
 import { DataContext } from "../context/DataContextTS";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import {
-  increase,
-  decrease,
-  deleteItem,
-  addToCart,
-} from "../counter/cartSlice";
+import { increase, decrease, deleteItem, addToCart } from "../slice/cartSlice";
 import Quantity from "./Quantity";
 import Delete from "./Delete";
 import type { RootState } from "../store/store";

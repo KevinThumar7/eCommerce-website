@@ -5,7 +5,7 @@ import CartProduct from "./CartProduct";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 import PaymentPage from "./PaymentPage";
-import { clearCart } from "../counter/cartSlice";
+import { clearCart } from "../slice/cartSlice";
 import { useDispatch } from "react-redux";
 
 function Cart() {

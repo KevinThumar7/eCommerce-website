@@ -2,11 +2,11 @@ import styles from "../css modules/Card.module.css";
 import gif from "../assets/giphy-2.gif";
 
 import { useDispatch } from "react-redux";
-import { addToCart } from "../counter/cartSlice";
+import { addToCart } from "../slice/cartSlice";
 import { NavLink } from "react-router-dom";
 import Quantity from "./Quantity";
 import { useSelector } from "react-redux";
-import { increase, decrease, deleteItem } from "../counter/cartSlice";
+import { increase, decrease, deleteItem } from "../slice/cartSlice";
 import type { RootState } from "../store/store";
 import Delete from "./Delete";
 

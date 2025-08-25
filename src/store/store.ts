@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from "../counter/counterSlice"
-import cartReducer from "../counter/cartSlice"
+import counterReducer from "../slice/counterSlice"
+import cartReducer from "../slice/cartSlice"
 
 const getState = () => {
   try {
