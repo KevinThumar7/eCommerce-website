@@ -3,8 +3,7 @@
 import { NavLink, useParams } from "react-router";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContextTS";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { increase, decrease, deleteItem, addToCart } from "../slice/cartSlice";
 import Quantity from "./Quantity";
 import Delete from "./Delete";
