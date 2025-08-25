@@ -27,7 +27,7 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action: PayloadAction<{ id: number; price: number; images: string[]; title: string }>) => {
+        addToCart: (state, action: PayloadAction<{ id: number; price: number; thumbnail: string; title: string }>) => {
             const newItem = action.payload;
             const existingItem = state.products.find(item => (item.id) === newItem.id);
 
@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
                     price: newItem.price,
                     quantity: 1,
                     totalPrice: newItem.price,
-                    image: newItem.images[0],
+                    image: newItem.thumbnail,
                     title: newItem.title
                 });
             }

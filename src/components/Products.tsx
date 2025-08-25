@@ -91,7 +91,7 @@ function Products() {
                   title={item.title}
                   price={item.price}
                   id={item.id}
-                  images={[item.images[0]]}
+                  thumbnail={item.thumbnail}
                 />
               );
             })

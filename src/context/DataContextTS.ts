@@ -4,7 +4,7 @@ export type Item = {
   id: number;
   title: string;
   price: number;
-  images: string;
+  thumbnail: string;
   description: string;
   brand: string;
   returnPolicy: string;

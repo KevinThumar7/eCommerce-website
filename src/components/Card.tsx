@@ -13,8 +13,8 @@ import Delete from "./Delete";
 type CardTypes = {
   id: number;
   title: string;
-  images: string[];
   price: number;
+  thumbnail: string;
 };
 
 function Card(props: CardTypes) {
@@ -27,7 +27,7 @@ function Card(props: CardTypes) {
       addToCart({
         id: props.id,
         price: props.price,
-        images: props.images,
+        thumbnail: props.thumbnail,
         title: props.title,
       })
     );
@@ -49,8 +49,8 @@ function Card(props: CardTypes) {
     <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
       <NavLink to={`/products/${props.id}`}>
         <div className="w-full">
-          {props.images?.length ? (
-            <img className="w-full" src={props.images[0]} alt={props.title} />
+          {props.thumbnail ? (
+            <img className="w-full" src={props.thumbnail} alt={props.title} />
           ) : (
             <div className="w-full bg-black flex items-center justify-center py-30">
               <img width={50} height={50} src={gif} alt="loading..." />

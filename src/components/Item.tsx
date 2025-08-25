@@ -12,7 +12,7 @@ import type { RootState } from "../store/store";
 interface Product {
   id: number;
   price: number;
-  images: string;
+  thumbnail: string;
   title: string;
 }
 
@@ -41,7 +41,7 @@ function Item() {
       addToCart({
         id: e.id,
         price: e.price,
-        images: [e.images[0]],
+        thumbnail: e.thumbnail,
         title: e.title,
       })
     );
@@ -71,7 +71,7 @@ function Item() {
             >
               <div className="w-[1000px] justify-center items-center flex max-md:flex-col">
                 <div className="w-1/2 mr-2">
-                  <img className="w-full h-full" src={item.images[0]} alt="" />
+                  <img className="w-full h-full" src={item.thumbnail} alt="" />
                 </div>
                 <div className="w-1/2 max-md:w-2/3 max-md:mt-5 max-sm:w-full">
                   <div>
