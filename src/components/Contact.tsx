@@ -36,7 +36,7 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("firstName", {
-                    required: true,
+                    required: "Required",
                     minLength: {
                       value: 3,
                       message: "Enter Characters Greater than 2",
@@ -63,7 +63,7 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("lastName", {
-                    required: true,
+                    required: "Required",
                     minLength: {
                       value: 3,
                       message: "Enter Characters Greater than 2",
@@ -90,8 +90,11 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("email", {
-                    required: true,
-                    minLength: { value: 3, message: "Enter a Valid Email" },
+                    required: "Required",
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: "Enter a Valid Email",
+                    },
                   })}
                   type="email"
                   name="email"
