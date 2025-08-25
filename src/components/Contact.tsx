@@ -37,10 +37,9 @@ function Contact() {
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("firstName", {
                     required: "Required",
-                    minLength: {
-                      value: 3,
-                      message: "Enter Characters Greater than 2",
-                    },
+                    validate: (value) =>
+                      value.trim().length >= 3 ||
+                      "Enter Characters Greater than 2",
                   })}
                   type="text"
                   name="firstName"
@@ -64,10 +63,9 @@ function Contact() {
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("lastName", {
                     required: "Required",
-                    minLength: {
-                      value: 3,
-                      message: "Enter Characters Greater than 2",
-                    },
+                    validate: (value) =>
+                      value.trim().length >= 3 ||
+                      "Enter Characters Greater than 2",
                   })}
                   type="text"
                   name="lastName"

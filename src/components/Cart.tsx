@@ -1,18 +1,41 @@
-// import React from 'react'
-
+import React from "react";
 import { NavLink } from "react-router-dom";
 import CartProduct from "./CartProduct";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
 import PaymentPage from "./PaymentPage";
 import { clearCart } from "../slice/cartSlice";
-import { useDispatch } from "react-redux";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute" as const,
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function Cart() {
   const count = useSelector((state: RootState) => state.cart.products);
   const subTotal = useSelector((state: RootState) => state.cart.totalPrice);
-
   const dispatch = useDispatch();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
+
+  const confirmClearCart = () => {
+    dispatch(clearCart());
+    handleCloseModal();
+  };
 
   return (
     <div className="w-screen container -mt-80">
@@ -22,7 +45,7 @@ function Cart() {
             <h1>Your Shopping Cart...</h1>
             <button
               type="button"
-              onClick={() => dispatch(clearCart())}
+              onClick={handleOpenModal}
               className="lg:text-xl md:text-lg sm:text-md text-sm underline cursor-pointer"
             >
               ...Clear Shopping Cart
@@ -38,7 +61,8 @@ function Cart() {
           </div>
         </div>
       )}
-      {count.length == 0 && (
+
+      {count.length === 0 && (
         <div className="w-1/2 mx-auto flex flex-col h-full mt-40 items-center">
           <span className="w-20 h-20">
             <svg
@@ -58,6 +82,31 @@ function Cart() {
           </div>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+      <Modal
+        open={open}
+        onClose={handleCloseModal}
+        aria-labelledby="clear-cart-title"
+        aria-describedby="clear-cart-description"
+      >
+        <Box sx={style}>
+          <Typography id="clear-cart-title" variant="h6" component="h2">
+            Clear Cart
+          </Typography>
+          <Typography id="clear-cart-description" sx={{ mt: 2 }}>
+            Are you sure you want to clear your shopping cart?
+          </Typography>
+          <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
+            <Button variant="outlined" onClick={handleCloseModal}>
+              No
+            </Button>
+            <Button variant="contained" color="error" onClick={confirmClearCart}>
+              Yes
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </div>
   );
 }

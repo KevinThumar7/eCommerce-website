@@ -4,9 +4,12 @@ import { increase, decrease, deleteItem } from "../slice/cartSlice";
 import type { RootState } from "../store/store";
 import Quantity from "./Quantity";
 import Delete from "./Delete";
+import Skeleton from "@mui/material/Skeleton";
+import { useState } from "react";
 
 function CartProduct() {
   const dispatch = useDispatch();
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   const items = useSelector((state: RootState) => state.cart.products);
 
@@ -42,8 +45,19 @@ function CartProduct() {
           className="w-full max-[574px]:min-w-2/3 rounded-3xl bg-gray-100 mb-4 flex max-[1027px]:flex-col p-5 justify-between items-center max-[1027px]:gap-3"
         >
           <div className="w-1/2 max-[1027px]:w-full flex justify-around items-center">
-            <div className="w-1/4 max-[743px]:w-1/2">
-              <img src={item.image} alt={item.title} />
+            <div className="w-1/4 h-[100px] flex justify-center items-center max-[743px]:w-1/2">
+              {!isImageLoaded && (
+                <Skeleton
+                  variant="rectangular"
+                  className="w-full min-h-full"
+                  sx={{ bgcolor: "grey.300" }}
+                />
+              )}
+              <img
+                src={item.image}
+                onLoad={() => setIsImageLoaded(true)}
+                alt={item.title}
+              />
             </div>
             <div className="w-2/3">
               <h3 className="md:text-lg sm:text-md text-sm">

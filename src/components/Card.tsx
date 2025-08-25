@@ -1,5 +1,5 @@
 import styles from "../css modules/Card.module.css";
-import gif from "../assets/giphy-2.gif";
+// import gif from "../assets/giphy-2.gif";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "../slice/cartSlice";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { increase, decrease, deleteItem } from "../slice/cartSlice";
 import type { RootState } from "../store/store";
 import Delete from "./Delete";
+import Skeleton from "@mui/material/Skeleton";
+import { useState } from "react";
 
 type CardTypes = {
   id: number;
@@ -21,6 +23,7 @@ function Card(props: CardTypes) {
   const items = useSelector((state: RootState) => state.cart.products);
   const cartItem = items.find((item) => item.id === props.id);
   const dispatch = useDispatch();
+  const [isImageLoaded , setIsImageLoaded] = useState<boolean>(false)
 
   const handleClick = () => {
     dispatch(
@@ -48,15 +51,24 @@ function Card(props: CardTypes) {
   return (
     <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
       <NavLink to={`/products/${props.id}`}>
-        <div className="w-full">
-          {props.thumbnail ? (
-            <img className="w-full" src={props.thumbnail} alt={props.title} />
-          ) : (
-            <div className="w-full bg-black flex items-center justify-center py-30">
-              <img width={50} height={50} src={gif} alt="loading..." />
-            </div>
+        <div className="w-full h-[300px] relative">
+          {!isImageLoaded && (
+            <Skeleton
+              variant="rectangular"
+              className="w-full min-h-full"
+              sx={{ bgcolor: "grey.300" }}
+            />
           )}
+          <img
+            className={`w-full h-full object-cover transition-opacity duration-500 ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            src={props.thumbnail}
+            alt={props.title}
+            onLoad={() => setIsImageLoaded(true)}
+          />
         </div>
+
         <div className="w-full lg:text-lg md:text-sm sm:text-[10px] text-[9px]">
           <h3>{props.title.toUpperCase()}</h3>
         </div>

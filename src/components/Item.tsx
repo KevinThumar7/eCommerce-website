@@ -1,13 +1,14 @@
 // import React from 'react'
 
 import { NavLink, useParams } from "react-router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContextTS";
 import { useDispatch, useSelector } from "react-redux";
 import { increase, decrease, deleteItem, addToCart } from "../slice/cartSlice";
 import Quantity from "./Quantity";
 import Delete from "./Delete";
 import type { RootState } from "../store/store";
+import Skeleton from "@mui/material/Skeleton";
 
 interface Product {
   id: number;
@@ -20,6 +21,7 @@ function Item() {
   const dispatch = useDispatch();
   const { items, loading } = useContext(DataContext);
   const param = useParams<string>();
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   const products = useSelector((state: RootState) => state.cart.products);
   const cartItem = products.find((item) => item.id === Number(param.id));
@@ -70,8 +72,20 @@ function Item() {
               className="w-full h-1/4 justify-center items-center mt-5 flex"
             >
               <div className="w-[1000px] justify-center items-center flex max-md:flex-col">
-                <div className="w-1/2 mr-2">
-                  <img className="w-full h-full" src={item.thumbnail} alt="" />
+                <div className="w-1/2 h-[500px] mr-2">
+                  {!isImageLoaded && (
+                    <Skeleton
+                      variant="rectangular"
+                      className="w-full min-h-full"
+                      sx={{ bgcolor: "grey.300" }}
+                    />
+                  )}
+                  <img
+                    className="w-full h-full"
+                    onLoad={() => setIsImageLoaded(true)}
+                    src={item.thumbnail}
+                    alt=""
+                  />
                 </div>
                 <div className="w-1/2 max-md:w-2/3 max-md:mt-5 max-sm:w-full">
                   <div>
