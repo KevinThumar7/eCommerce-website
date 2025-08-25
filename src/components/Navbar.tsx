@@ -57,7 +57,7 @@ function Navbar() {
             </span>
             <span className="relative navbar-search-icon bootstrap-icons w-8 h-8 flex justify-center items-center">
               {products.length > 0 && (
-                <p className="lg:w-5 text-[10px] lg:h-5 md:w-4 md:h-4 sm:w-3 sm:h-3 flex justify-center items-center top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full text-white absolute">
+                <p className="lg:w-5 min-[600px]:text-[10px] w-2 text-[5px] lg:h-5 md:w-4 md:h-4 sm:w-3 sm:h-3 flex justify-center items-center top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full text-white absolute">
                   {totalQuantity}
                 </p>
               )}
