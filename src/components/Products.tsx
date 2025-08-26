@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import Card from "./Card";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { DataContext } from "../context/DataContextTS";
+import type { Item } from "../context/DataContextTS";
 
 type Products = {
   id: number;
@@ -15,10 +15,48 @@ type Products = {
 const PRODUCTS_PER_PAGE = 8;
 
 function Products() {
-  const { items, loading } = useContext(DataContext);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [items, setItems] = useState<Item[]>([]);
   const [searchProduct, setSearchProduct] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
+  const [debouncing, setDebouncing] = useState<string>("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncing(searchProduct);
+    }, 700);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchProduct]);
+
+  const fetchUrl = (page: number) => {
+    const start: number = (page - 1) * PRODUCTS_PER_PAGE;
+
+    let url = `https://dummyjson.com/products/search?q=${searchProduct}&limit=${PRODUCTS_PER_PAGE}&skip=${start}`;
+
+    if (filter) {
+      url += `&sortBy=price&order=${filter}`;
+    }
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setItems(res.products);
+        setLoading(false);
+        setTotal(res.total);
+      })
+      .catch((err) => {
+        console.error("Error fetching products", err);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchUrl(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncing, filter]);
 
   if (loading) {
     return (
@@ -28,25 +66,10 @@ function Products() {
     );
   }
 
-  const filteredData = items
-    .filter((item) =>
-      item.title.toLowerCase().includes(searchProduct.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (filter === "lowToHigh") return a.price - b.price;
-      if (filter === "highToLow") return b.price - a.price;
-      return 0;
-    });
-
-  const pageCount = Math.ceil(filteredData.length / PRODUCTS_PER_PAGE);
-  const paginatedData = filteredData.slice(
-    (page - 1) * PRODUCTS_PER_PAGE,
-    page * PRODUCTS_PER_PAGE
-  );
-
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchUrl(value);
   };
 
   return (
@@ -71,8 +94,8 @@ function Products() {
                 }}
               >
                 <option value="">Select</option>
-                <option value="lowToHigh">Low to High</option>
-                <option value="highToLow">High to Low</option>
+                <option value="asc">Low to High</option>
+                <option value="desc">High to Low</option>
               </select>
             </span>
           </div>
@@ -97,12 +120,12 @@ function Products() {
           </div>
         </div>
         <div className="flex flex-wrap">
-          {paginatedData.length === 0 ? (
+          {items.length === 0 ? (
             <h1 className="mt-20 text-center w-full text-gray-500">
               No Products Found
             </h1>
           ) : (
-            paginatedData.map((item) => (
+            items.map((item) => (
               <Card
                 key={item.id}
                 title={item.title}
@@ -113,19 +136,17 @@ function Products() {
             ))
           )}
         </div>
-        {filteredData.length > PRODUCTS_PER_PAGE && (
-          <div className="flex justify-center mt-10 mb-15">
-            <Stack spacing={2}>
-              <Pagination
-                count={pageCount}
-                page={page}
-                onChange={handlePageChange}
-                variant="outlined"
-                color="primary"
-              />
-            </Stack>
-          </div>
-        )}
+        <div className="flex justify-center mt-10 mb-15">
+          <Stack spacing={2}>
+            <Pagination
+              count={Math.ceil(total / PRODUCTS_PER_PAGE)}
+              page={page}
+              onChange={handlePageChange}
+              variant="outlined"
+              color="primary"
+            />
+          </Stack>
+        </div>
       </div>
     </section>
   );

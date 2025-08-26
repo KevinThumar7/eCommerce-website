@@ -51,16 +51,16 @@ function Card(props: CardTypes) {
   return (
     <div className="lg:w-1/4 w-1/3 p-2 flex flex-col cursor-pointer">
       <NavLink to={`/products/${props.id}`}>
-        <div className="w-full h-[300px] relative">
+        <div className="min-w-full md:h-[300px] h-[150px] flex justify-center items-center relative">
           {!isImageLoaded && (
             <Skeleton
               variant="rectangular"
-              className="w-full min-h-full"
+              className="min-w-full min-h-full"
               sx={{ bgcolor: "grey.300" }}
             />
           )}
           <img
-            className={`w-full h-full object-cover transition-opacity duration-500 ${
+            className={`w-full object-cover transition-opacity duration-500 ${
               isImageLoaded ? "opacity-100" : "opacity-0"
             }`}
             src={props.thumbnail}

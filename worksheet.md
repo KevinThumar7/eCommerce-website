@@ -1,6 +1,6 @@
 <!-- dummy api of products -->
 
-https://dummyjson.com/docs/products
+https://dummyjson.com/products
 
 <!-- ecommerce website template -->
 
