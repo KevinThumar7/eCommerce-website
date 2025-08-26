@@ -8,8 +8,13 @@ function Home() {
           <h1 className="text-black lg:text-3xl md:text-2xl sm:text-xl text-xs p-2 mt-[-60px] bg-white">
             INCREDIBLE PRICES ON ALL YOUR FAVOURITE ITEMS
           </h1>
-          <span className="cursor-pointer md:py-2 md:px-8 py-1 px-4 text-sm md:text-lg mt-3 bg-black text-white rounded-4xl hover:bg-white hover:text-black duration-600 transition-all">
-            <NavLink to={"/products"}>Shop Now</NavLink>
+          <span className="mt-5">
+            <NavLink
+              className="cursor-pointer md:py-2 md:px-8 py-1 px-4 text-sm md:text-lg mt-3 bg-black text-white rounded-4xl hover:bg-white hover:text-black duration-600 transition-all"
+              to={"/products"}
+            >
+              Shop Now
+            </NavLink>
           </span>
         </div>
       </div>

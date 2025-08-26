@@ -61,8 +61,8 @@ function Cart() {
           </span>
           <h2 className="mt-10 text-2xl">Your Shopping Cart is Empty...</h2>
           <div className="mt-10">
-            <span className="cursor-pointer md:py-2 md:px-8 py-1 px-4 text-sm md:text-lg bg-black text-white rounded-4xl hover:bg-gray-300 hover:text-black duration-600 transition-all">
-              <NavLink to={"/products"}>Shop Now</NavLink>
+            <span>
+              <NavLink className="cursor-pointer md:py-2 md:px-8 py-1 px-4 text-sm md:text-lg bg-black text-white rounded-4xl hover:bg-gray-300 hover:text-black duration-600 transition-all" to={"/products"}>Shop Now</NavLink>
             </span>
           </div>
         </div>
