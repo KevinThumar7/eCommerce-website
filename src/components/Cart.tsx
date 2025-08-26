@@ -5,22 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
 import PaymentPage from "./PaymentPage";
 import { clearCart } from "../slice/cartSlice";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-
-const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import ModalPage from "./ModalPage";
 
 function Cart() {
   const count = useSelector((state: RootState) => state.cart.products);
@@ -82,30 +67,14 @@ function Cart() {
           </div>
         </div>
       )}
-
-      <Modal
-        open={open}
-        onClose={handleCloseModal}
-        aria-labelledby="clear-cart-title"
-        aria-describedby="clear-cart-description"
-      >
-        <Box sx={style}>
-          <Typography id="clear-cart-title" variant="h6" component="h2">
-            Clear Cart
-          </Typography>
-          <Typography id="clear-cart-description" sx={{ mt: 2 }}>
-            Are you sure you want to clear your shopping cart?
-          </Typography>
-          <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
-            <Button variant="outlined" onClick={handleCloseModal}>
-              No
-            </Button>
-            <Button variant="contained" color="error" onClick={confirmClearCart}>
-              Yes
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
+      {open && (
+        <ModalPage
+          handleCloseModal={handleCloseModal}
+          confirmDelete={confirmClearCart}
+          open={open}
+          title={"Are you sure you want to clear the Shopping Cart ?"}
+        />
+      )}
     </div>
   );
 }
