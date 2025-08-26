@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 function Contact() {
@@ -9,14 +10,22 @@ function Contact() {
     email: string;
   };
 
+  const [submit, submitted] = useState<string>("");
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
+    reset({ firstName: "", lastName: "", email: "" });
+    submitted("Submitted");
+    setTimeout(() => {
+      submitted("");
+    }, 2000);
   };
 
   return (
@@ -36,10 +45,10 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("firstName", {
-                    required: "Required",
+                    required: "First Name is Required",
                     validate: (value) =>
                       value.trim().length >= 3 ||
-                      "Enter Characters Greater than 2",
+                      "Enter more than 2 Characters",
                   })}
                   type="text"
                   name="firstName"
@@ -62,10 +71,10 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("lastName", {
-                    required: "Required",
+                    required: "Last Name is Required",
                     validate: (value) =>
                       value.trim().length >= 3 ||
-                      "Enter Characters Greater than 2",
+                      "Enter more than 2 Characters",
                   })}
                   type="text"
                   name="lastName"
@@ -88,13 +97,13 @@ function Contact() {
                 <input
                   className="border py-1 rounded-xl md:px-5 sm:px-3 px-2"
                   {...register("email", {
-                    required: "Required",
+                    required: "Email is Required",
                     pattern: {
                       value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: "Enter a Valid Email",
+                      message: "Please Enter a Valid Email",
                     },
                   })}
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   placeholder="Enter Your Email..."
@@ -111,6 +120,7 @@ function Contact() {
                 >
                   {isSubmitting ? "Submitting" : "Submit"}
                 </button>
+                {submit && <p className="mt-2 text-green-500">{submit}</p>}
               </div>
             </form>
           </div>

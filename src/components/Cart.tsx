@@ -83,7 +83,6 @@ function Cart() {
         </div>
       )}
 
-      {/* Confirmation Modal */}
       <Modal
         open={open}
         onClose={handleCloseModal}

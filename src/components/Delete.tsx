@@ -1,8 +1,8 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -25,7 +25,7 @@ interface DeleteProps {
 }
 
 export default function Delete({ item, handleDelete }: DeleteProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -37,7 +37,6 @@ export default function Delete({ item, handleDelete }: DeleteProps) {
 
   return (
     <div>
-      {/* Delete icon button */}
       <button
         title="delete"
         type="button"
@@ -47,7 +46,6 @@ export default function Delete({ item, handleDelete }: DeleteProps) {
         <i className="bi bi-trash3"></i>
       </button>
 
-      {/* Modal for confirmation */}
       <Modal
         open={open}
         onClose={handleCloseModal}
