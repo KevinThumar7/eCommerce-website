@@ -2,8 +2,11 @@
 import { NavLink } from "react-router";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 function Navbar() {
+  const { t } = useTranslation();
   const products = useSelector((state: RootState) => state.cart.products);
   const totalQuantity = useSelector(
     (state: RootState) => state.cart.totalQuantity
@@ -43,10 +46,11 @@ function Navbar() {
           </div>
           <div className="w-fit text-center flex justify-center items-center">
             <h1 className="xl:text-3xl lg:text-2xl md:text-xl sm:text-lg text-sm">
-              <NavLink to={"/"}>HEAVENLY</NavLink>
+              <NavLink to={"/"}>{t("logo")}</NavLink>
             </h1>
           </div>
           <div className="w-full text-center flex items-center justify-end gap-5">
+            <LanguageSelector />
             <span className="lg:text-sm md:text-xs sm:text-[10px] text-[7px]">
               <NavLink
                 className={({ isActive }) => (isActive ? "active-link" : "")}
